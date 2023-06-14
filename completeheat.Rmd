@@ -1,0 +1,51 @@
+---
+title: "completeheat"
+author: "Camilo Gálvez A."
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(vegan)
+library(clustsig)
+```
+
+```{r}
+abund <- read.csv("~/completeheat/data/HCS_PPE_Taxonomic_And_Abundance.csv", header = TRUE, sep = ";", dec = ".", skip = 0, row.names = 1)
+environ <- read.csv("~/completeheat/data/HCS_Metal_Environment_NMDS.csv", header = TRUE, sep = ";", dec = ".", skip = 0, row.names = 1)
+taxa <- read.csv("~/completeheat/data/HCS_PPE_TAXA.csv", header = TRUE, sep = ";", dec = ".", skip = 0, row.names = 1)
+```
+
+```{r}
+simp <- abund[,c(3:65)]
+rownames(simp) <- abund$ASV
+simp.hell <- vegan::decostand(as.data.frame(t(simp)), method = "hellinger")
+simp.hc <- vegan::vegdist(simp.hell, method = "bray", diag = TRUE) %>% as.matrix() %>% as.data.frame()
+sprof <- clustsig::simprof(data = simp.hc, 
+                           method.cluster = "average", 
+                           silent = FALSE, 
+                           increment = 100, 
+                           undef.zero = TRUE)
+splot <- clustsig::simprof.plot(sprof)
+sclust <- sprof$hclust
+smpr <- add_column(simp.hell, 
+                   .before = simp.hell[,1], 
+                   Site = c(rep("Chanaral", 12), 
+                            rep("Flamenco", 12), 
+                            rep("Huasco", 12), 
+                            rep("Pta.Choros", 5), 
+                            rep("Quintero", 10), 
+                            rep("LasCruces", 12)
+                            ), 
+                   .name_repair = "minimal")
+smpr$Site <- factor(smpr$Site, levels = unique(smpr$Site))
+```
+
+```{r}
+
+```
+
