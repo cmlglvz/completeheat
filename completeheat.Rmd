@@ -15,9 +15,9 @@ library(clustsig)
 ```
 
 ```{r}
-abund <- read.csv("~/completeheat/data/HCS_PPE_Taxonomic_And_Abundance.csv", header = TRUE, sep = ";", dec = ".", skip = 0, row.names = 1)
-environ <- read.csv("~/completeheat/data/HCS_Metal_Environment_NMDS.csv", header = TRUE, sep = ";", dec = ".", skip = 0, row.names = 1)
-taxa <- read.csv("~/completeheat/data/HCS_PPE_TAXA.csv", header = TRUE, sep = ";", dec = ".", skip = 0, row.names = 1)
+abund <- read.csv("https://raw.githubusercontent.com/cmlglvz/completeheat/main/data/HCS_PPE_Taxonomic_And_Abundance.csv", header = TRUE, sep = ";", dec = ".", skip = 0, row.names = 1)
+environ <- read.csv("https://raw.githubusercontent.com/cmlglvz/completeheat/main/data/HCS_Metal_Environment_NMDS.csv", header = TRUE, sep = ";", dec = ".", skip = 0, row.names = 1)
+taxa <- read.csv("https://raw.githubusercontent.com/cmlglvz/completeheat/main/data/HCS_PPE_TAXA.csv", header = TRUE, sep = ";", dec = ".", skip = 0, row.names = 1)
 ```
 
 ```{r}
